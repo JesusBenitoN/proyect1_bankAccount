@@ -1,0 +1,11 @@
+server:
+  port: 8090
+  servlet:
+    application-display-name: servicio-bankAccount
+
+datasource:
+  url: mongodb://localhost:18100/dbbankAccount
+  
+eureka:
+  client:
+    serviceUrl.defaultZone: http://localhost:8761/eureka
