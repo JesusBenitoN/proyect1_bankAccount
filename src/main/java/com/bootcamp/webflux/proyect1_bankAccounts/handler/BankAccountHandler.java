@@ -69,7 +69,7 @@ public class BankAccountHandler {
 					//convertimos a Mono.serverResponse
 					.flatMap(lista -> ServerResponse.badRequest().body(fromObject(lista)));
 			}else {
-				return bankAccount.flatMap(bk -> service.save(bk)).flatMap(r -> ServerResponse
+				return service.save(b).flatMap(r -> ServerResponse
 						.created(URI.create("/api/bankAccount/".concat(r.getId())))
 						.contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(BodyInserters.fromObject(r)));
