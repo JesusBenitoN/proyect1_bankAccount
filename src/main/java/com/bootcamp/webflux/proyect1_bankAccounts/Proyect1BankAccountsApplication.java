@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import com.bootcamp.webflux.proyect1_bankAccounts.models.documents.BankAccount;
 import com.bootcamp.webflux.proyect1_bankAccounts.models.services.BankAccountService;
 
+
 import reactor.core.publisher.Flux;
 
 @SpringBootApplication
@@ -26,6 +27,7 @@ public class Proyect1BankAccountsApplication implements CommandLineRunner{
 
 	public static void main(String[] args) {
 		SpringApplication.run(Proyect1BankAccountsApplication.class, args);
+		
 	}
 
 	@Override
@@ -34,13 +36,14 @@ public class Proyect1BankAccountsApplication implements CommandLineRunner{
 		mongoTemplate.dropCollection("bankAccount").subscribe();
 		
 		Flux.just(new BankAccount("qwe9888", "Cuenta Ahorro", 0.00, 500.00),
-				new BankAccount("poi89000", "Cuenta Fijo", 0.00, 100.00),
+				new BankAccount("poi89000", "Cuenta a plazo Fijo", 0.00, 100.00),
 				new BankAccount("ppp90989", "Cuenta Corriente", 0.00, 800.00),
 				new BankAccount("qwe0990", "Cuenta Fijo", 0.00, 120.00))
 		.flatMap(bankAccount -> {
 			return service.save(bankAccount);
 		})
 		.subscribe(bankAccount -> log.info("Insert NameAccount: "+ bankAccount.getNameAccount()));
+		
 		
 	}
 

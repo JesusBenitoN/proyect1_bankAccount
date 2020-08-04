@@ -2,6 +2,7 @@ package com.bootcamp.webflux.proyect1_bankAccounts.models.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+//import org.springframework.web.client.RestTemplate;
 
 import com.bootcamp.webflux.proyect1_bankAccounts.models.dao.BankAccountDao;
 import com.bootcamp.webflux.proyect1_bankAccounts.models.documents.BankAccount;
@@ -14,6 +15,9 @@ public class BankAccountServiceImpl implements BankAccountService{
 	
 	@Autowired
 	private BankAccountDao dao;
+	
+//	@Autowired
+//	private RestTemplate restemplate;
 
 	@Override
 	public Flux<BankAccount> findAll() {

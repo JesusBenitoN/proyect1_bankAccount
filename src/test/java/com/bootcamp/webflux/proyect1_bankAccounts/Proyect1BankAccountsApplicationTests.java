@@ -6,6 +6,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -16,8 +17,9 @@ import com.bootcamp.webflux.proyect1_bankAccounts.models.services.BankAccountSer
 
 import reactor.core.publisher.Mono;
 
-
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//para el mock
+@AutoConfigureWebTestClient
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)//RANDOM_PORT
 class Proyect1BankAccountsApplicationTests {
 	
 	@Autowired
@@ -31,7 +33,7 @@ class Proyect1BankAccountsApplicationTests {
 	void listTest() {
 		
 		client.get()
-		.uri("api/v2/bankAccount")
+		.uri("/api/bankAccount")
 		.accept(MediaType.APPLICATION_JSON_UTF8)
 		.exchange()
 		.expectStatus().isOk()
@@ -53,7 +55,7 @@ class Proyect1BankAccountsApplicationTests {
 		BankAccount bankAccount = service.findByCustomerId("qwe9888").block();
 		
 		client.get()
-		.uri("api/v2/bankAccount/{id}", Collections.singletonMap("id", bankAccount.getId()))
+		.uri("/api/bankAccount/{id}", Collections.singletonMap("id", bankAccount.getId()))
 		.accept(MediaType.APPLICATION_JSON_UTF8)
 		.exchange()
 		.expectStatus().isOk()
@@ -73,7 +75,7 @@ class Proyect1BankAccountsApplicationTests {
 		
 		BankAccount bankAccount = new BankAccount("eeer4567", "Cuenta Corriente", 0.00, 150.00);
 		client.post()
-		.uri("api/v2/bankAccount")
+		.uri("/api/bankAccount")
 		.accept(MediaType.APPLICATION_JSON_UTF8)
 		.contentType(MediaType.APPLICATION_JSON_UTF8)
 		.body(Mono.just(bankAccount), BankAccount.class)
@@ -97,7 +99,7 @@ class Proyect1BankAccountsApplicationTests {
 		
 		BankAccount bankAccountEdit = new BankAccount("qwe0990", "Cuenta Corriente", 0.00, 190.00);
 		client.put()
-		.uri("api/v2/bankAccount/{id}", Collections.singletonMap("id", bankAccount.getId()))
+		.uri("/api/bankAccount/{id}", Collections.singletonMap("id", bankAccount.getId()))
 		.accept(MediaType.APPLICATION_JSON_UTF8)
 		.contentType(MediaType.APPLICATION_JSON_UTF8)
 		.body(Mono.just(bankAccountEdit), BankAccount.class)
@@ -117,7 +119,7 @@ class Proyect1BankAccountsApplicationTests {
 		BankAccount bankAccount = service.findByCustomerId("poi89000").block();
 		
 		client.delete()
-		.uri("api/v2/bankAccount/{id}", Collections.singletonMap("id", bankAccount.getId()))
+		.uri("/api/bankAccount/{id}", Collections.singletonMap("id", bankAccount.getId()))
 		.exchange()
 		.expectStatus().isNoContent()
 		.expectBody()

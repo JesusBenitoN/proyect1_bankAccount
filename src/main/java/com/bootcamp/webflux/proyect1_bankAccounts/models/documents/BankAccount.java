@@ -17,9 +17,8 @@ public class BankAccount {
 	
 	private Double amountTotal;
 
-	public BankAccount() {
-	}
-	
+	public BankAccount() {}
+
 	public BankAccount(String customerId, String nameAccount, Double amount, Double amountTotal) {
 		this.customerId = customerId;
 		this.nameAccount = nameAccount;
