@@ -1,6 +1,7 @@
 package com.bootcamp.webflux.proyect1_bankAccounts.models.services;
 
 import com.bootcamp.webflux.proyect1_bankAccounts.models.documents.BankAccount;
+import com.bootcamp.webflux.proyect1_bankAccounts.models.documents.Customers;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,5 +19,7 @@ public interface BankAccountService {
 	public Mono<BankAccount> findByNameAccount(String nameAccount);
 	
 	public Mono<BankAccount> findByCustomerId(String customerId);
+
+	public Customers findIdApi(String string);
 
 }

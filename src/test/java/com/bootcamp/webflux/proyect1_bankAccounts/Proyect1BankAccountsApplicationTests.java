@@ -28,16 +28,16 @@ class Proyect1BankAccountsApplicationTests {
 	@Autowired
 	private BankAccountService service;
 
-	@SuppressWarnings("deprecation")
+	
 	@Test
 	void listTest() {
 		
 		client.get()
 		.uri("/api/bankAccount")
-		.accept(MediaType.APPLICATION_JSON_UTF8)
+		.accept(MediaType.APPLICATION_JSON)
 		.exchange()
 		.expectStatus().isOk()
-		.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+		.expectHeader().contentType(MediaType.APPLICATION_JSON)
 		.expectBodyList(BankAccount.class)
 		.consumeWith(response -> {
 			List<BankAccount> bankAccounts = response.getResponseBody();
@@ -48,7 +48,7 @@ class Proyect1BankAccountsApplicationTests {
 		});
 	}
 	
-	@SuppressWarnings("deprecation")
+	
 	@Test
 	void seeTest() {
 		
@@ -56,10 +56,10 @@ class Proyect1BankAccountsApplicationTests {
 		
 		client.get()
 		.uri("/api/bankAccount/{id}", Collections.singletonMap("id", bankAccount.getId()))
-		.accept(MediaType.APPLICATION_JSON_UTF8)
+		.accept(MediaType.APPLICATION_JSON)
 		.exchange()
 		.expectStatus().isOk()
-		.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+		.expectHeader().contentType(MediaType.APPLICATION_JSON)
 		//cuando el body es un objeto
 		.expectBody(BankAccount.class)
 		.consumeWith(response -> {
@@ -69,19 +69,19 @@ class Proyect1BankAccountsApplicationTests {
 		});
 	}
 	
-	@SuppressWarnings("deprecation")
+	
 	@Test
 	void createTest() {
 		
 		BankAccount bankAccount = new BankAccount("eeer4567", "Cuenta Corriente", 0.00, 150.00);
 		client.post()
 		.uri("/api/bankAccount")
-		.accept(MediaType.APPLICATION_JSON_UTF8)
-		.contentType(MediaType.APPLICATION_JSON_UTF8)
+		.accept(MediaType.APPLICATION_JSON)
+		.contentType(MediaType.APPLICATION_JSON)
 		.body(Mono.just(bankAccount), BankAccount.class)
 		.exchange()
 		.expectStatus().isCreated()
-		.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+		.expectHeader().contentType(MediaType.APPLICATION_JSON)
 		.expectBody(BankAccount.class)
 		.consumeWith(response -> {
 			BankAccount c = response.getResponseBody();
@@ -92,7 +92,7 @@ class Proyect1BankAccountsApplicationTests {
 
 	}
 
-	@SuppressWarnings("deprecation")
+	
 	@Test
 	void editTest() {
 		BankAccount bankAccount = service.findByCustomerId("qwe0990").block();
@@ -100,12 +100,12 @@ class Proyect1BankAccountsApplicationTests {
 		BankAccount bankAccountEdit = new BankAccount("qwe0990", "Cuenta Corriente", 0.00, 190.00);
 		client.put()
 		.uri("/api/bankAccount/{id}", Collections.singletonMap("id", bankAccount.getId()))
-		.accept(MediaType.APPLICATION_JSON_UTF8)
-		.contentType(MediaType.APPLICATION_JSON_UTF8)
+		.accept(MediaType.APPLICATION_JSON)
+		.contentType(MediaType.APPLICATION_JSON)
 		.body(Mono.just(bankAccountEdit), BankAccount.class)
 		.exchange()
 		.expectStatus().isCreated()
-		.expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+		.expectHeader().contentType(MediaType.APPLICATION_JSON)
 		.expectBody(BankAccount.class)
 		.consumeWith(response -> {
 			BankAccount c = response.getResponseBody();
